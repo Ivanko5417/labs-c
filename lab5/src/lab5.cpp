@@ -37,7 +37,7 @@ class Person {
 			return this->next;
 		}
 
-		Person(char* name, char* date_of_bitth, char* sex) {
+		Person(char* name, char* date_of_birth, char* sex) {
 			strcpy(this->date_of_birth, date_of_birth);
 			strcpy(this->name, name);
 			strcpy(this->sex, sex);
@@ -55,7 +55,7 @@ class Person {
 			delete this->next;
 		}
 
-		void SetPersonInfo(char* name, char* date_of_bitth, char* sex) {
+		void SetPersonInfo(char* name, char* date_of_birth, char* sex) {
 			strcpy(this->date_of_birth, date_of_birth);
 			strcpy(this->name, name);
 			strcpy(this->sex, sex);
@@ -81,6 +81,10 @@ class Employee : public Person
 	protected:
 		char role[100];
 	public:
+		Employee():Person() {
+			strcpy(this->role, "None");
+		}
+
 		virtual void PersonInfo() {
 			cout << "Emploee: " << endl;
 			cout << "	Name: " << this->name << endl;
@@ -104,6 +108,7 @@ class Manager : public Employee
 	public:
 		Manager(char* department) {
 			strcpy(this->department, department);
+			employers = NULL;
 		}
 		void setDepartment(char* department) {
 			strcpy(this->department, department);
@@ -143,6 +148,7 @@ class Chief : public Employee
 	public:
 		Chief(char * company) {
 			strcpy(this->company, company);
+			managers = NULL;
 		}
 		void setCompany(char* company) {
 			strcpy(this->company, company);
