@@ -36,6 +36,9 @@ class Person {
 		Person* getNext() {
 			return this->next;
 		}
+		void setNext(Person* person) {
+			this->next = person;
+		}
 
 		Person(char* name, char* date_of_birth, char* sex) {
 			strcpy(this->date_of_birth, date_of_birth);
@@ -66,7 +69,7 @@ class Person {
 			while(sp->getNext() != NULL) {
 				sp = sp->getNext();
 			}
-			sp->next = person;
+			sp->setNext(person);
 		}
 		virtual void PersonInfo() {
 			cout << "Person: " << endl;
@@ -125,7 +128,7 @@ class Manager : public Employee
 		}
 		void PrintEmployers() {
 			Person* sp = employers;
-			if(sp) {
+			while(sp) {
 				sp->PersonInfo();
 				sp = sp->getNext();
 			}
@@ -167,7 +170,7 @@ class Chief : public Employee
 		}
 		void PrintManagers() {
 			Person* sp = managers;
-			if(sp) {
+			while(sp) {
 				sp->PersonInfo();
 				sp = sp->getNext();
 			}
@@ -189,12 +192,13 @@ int main() {
 	ch->SetPersonInfo("Остап Бендер", "12.12.1212", "м");
 	Manager * m1 = new Manager("Рога");
 	m1->SetPersonInfo("Шура", "01.01.0101", "м");
+	m1->setRole("Батя");
 	Manager * m2 = new Manager("Копыта");
-	m1->SetPersonInfo("Паниковский", "10.10.1010", "м");
+	m2->SetPersonInfo("Паниковский", "10.10.1010", "м");
+	m2->setRole("Батя бати");
 	ch->AddManager(m1);
 	ch->AddManager(m2);
 	ch->PersonInfo();
 	ch->PrintManagers();
-
 	return 0;
 }
