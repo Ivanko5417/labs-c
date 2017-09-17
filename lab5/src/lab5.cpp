@@ -32,6 +32,11 @@ class Person {
 		char* getSex() {
 			return this->sex;
 		}
+
+		Person* getNext() {
+			return this->next;
+		}
+
 		Person(char* name, char* date_of_bitth, char* sex) {
 			strcpy(this->date_of_birth, date_of_birth);
 			strcpy(this->name, name);
@@ -58,8 +63,8 @@ class Person {
 
 		void AddNextPerson(Person *person) {
 			Person* sp = this;
-			while(sp->next != NULL) {
-				sp = sp->next;
+			while(sp->getNext() != NULL) {
+				sp = sp->getNext();
 			}
 			sp->next = person;
 		}
@@ -113,6 +118,13 @@ class Manager : public Employee
 			else
 				employers = employee;
 		}
+		void PrintEmployers() {
+			Person* sp = employers;
+			if(sp) {
+				sp->PersonInfo();
+				sp = sp->getNext();
+			}
+		}
 		void PersonInfo() {
 			cout << "Manager: " << endl;
 			cout << "	Name: " << this->name << endl;
@@ -147,7 +159,13 @@ class Chief : public Employee
 				this->managers = manager;
 
 		}
-
+		void PrintManagers() {
+			Person* sp = managers;
+			if(sp) {
+				sp->PersonInfo();
+				sp = sp->getNext();
+			}
+		}
 		void PersonInfo() {
 			cout << "Manager: " << endl;
 			cout << "	Name: " << this->name << endl;
@@ -170,5 +188,7 @@ int main() {
 	ch->AddManager(m1);
 	ch->AddManager(m2);
 	ch->PersonInfo();
+	ch->PrintManagers();
+
 	return 0;
 }
